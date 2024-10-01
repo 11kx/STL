@@ -131,6 +131,39 @@ public:
     {
         return last_ - first_;
     }
+    T& operator[](int index)
+    {
+        return first_[index];
+    }
+    class iterator
+    {
+    public:
+        iterator(T* p = nullptr)
+        :p_(p)
+        {}
+        bool operator!=(const iterator& other)
+        {
+            return p_ != other.p_;
+        }
+        void operator++()
+        {
+            p_++;
+        }
+        T& operator*()
+        {
+            return *p_;
+        }
+    private:
+        T* p_;
+    };
+    iterator begin()
+    {
+        return iterator(first_);
+    }
+    iterator end()
+    {
+        return iterator(last_);
+    }
 private:
     void expand()   //二倍扩容
     {
