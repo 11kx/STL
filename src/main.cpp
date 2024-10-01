@@ -1,19 +1,27 @@
 #include <iostream>
 #include "vector.hpp"
 
+class Test
+{
+    public:
+    Test()
+    {
+        std::cout << "construct" << std::endl;
+    }
+    ~Test()
+    {
+        std::cout << "destory " << std::endl;
+    }
+};
 int main()
 {
-    vector<int> v;
-    for(int i =0;i < 20;i++)
-    {
-        v.push_back(random()%100);
-    }
+    Test t1;
+    vector<Test> v;
     
-
-    for(int i =0;i < 20;i++)
-    {
-        std::cout << v.back() << " ";
-        v.pop_back();
-    }
+    v.push_back(t1);
+    v.push_back(t1);
+    v.push_back(t1);
+    
+    v.pop_back();
     std::cout << std::endl;
 }
