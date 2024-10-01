@@ -79,17 +79,56 @@ public:
     }
     friend std::ostream& operator<<(std::ostream& out,const String& s);
     friend String operator+(const String& a,const String& b);
+public:
+    class iterator
+    {
+    public:
+        iterator(char* p = nullptr):p_(p)
+        {}
+        bool operator!=(const iterator& iter)
+        {
+            return p_ != iter.p_;
+        }
+        iterator& operator++()
+        {
+            ++p_;
+            return *this;
+        }
+        iterator operator++(int)
+        {
+            iterator tmp = *this;
+            p_++;
+            return tmp;
+        }
+        char& operator*() const
+        {
+            return *p_;
+        }
+
+    private:
+        char* p_;
+    };
+    iterator begin()
+    {
+        return iterator(ptr_);
+    }
+    iterator end()
+    {
+        return iterator(ptr_ + length());
+    }
 private:
     char* ptr_;
 };
 //这里就特别时候移动构造了，我内部已经申请好了，就是因为生命周期的原因我还要再释放掉再拷贝一个新的。用右值引用来延长生命周期。
 String operator+(const String& lhs,const String& rhs)
 {
-    char* p_temp = new char[strlen(lhs.ptr_) + strlen(rhs.ptr_)  + 2];
-    strcpy(p_temp,lhs.ptr_);
-    strcat(p_temp,rhs.ptr_);
-    String result = p_temp;
-    delete [] p_temp;
+    String result;
+    result.ptr_ = new char[strlen(lhs.ptr_) + strlen(rhs.ptr_)  + 1];
+    //char* p_temp = new char[strlen(lhs.ptr_) + strlen(rhs.ptr_)  + 1];
+    strcpy(result.ptr_,lhs.ptr_);
+    strcat(result.ptr_,rhs.ptr_);
+    //String result = p_temp;
+    //delete [] p_temp;
     return result;
 }
 
