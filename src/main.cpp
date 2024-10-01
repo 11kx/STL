@@ -1,27 +1,21 @@
 #include <iostream>
-#include "vector.hpp"
+#include "string.hpp"
 
-class Test
-{
-    public:
-    Test()
-    {
-        std::cout << "construct" << std::endl;
-    }
-    ~Test()
-    {
-        std::cout << "destory " << std::endl;
-    }
-};
+
 int main()
 {
-    Test t1;
-    vector<Test> v;
-    
-    v.push_back(t1);
-    v.push_back(t1);
-    v.push_back(t1);
-    
-    v.pop_back();
-    std::cout << std::endl;
+    String s2 = "aaa";
+    String s5 = s2 + "ccc";
+    String s6 = "ddd" + s2;
+
+    std::cout << s5.length() << std::endl;
+    std::cout << s6[3] << std::endl;
+    if(s5 > s6)
+    {
+        std::cout << s5 << " > " << s6 << std::endl;
+    }
+    else
+    {
+        std::cout << s5 << " < " << s6 << std::endl;
+    }
 }
