@@ -8,6 +8,35 @@ private:
             : value_(data), next_(next)
         {
         }
+        void* operator new(size_t size)
+        {
+            if(item_pool_ == nullptr)
+            {
+                item_pool_ = (queItem*)new char [POOLSIZE * sizeof(queItem)];
+                //把申请好的位置链接起来
+                queItem* p = item_pool_;
+                for(;p < item_pool_ + POOLSIZE - 1;p++)
+                {
+                    p->next_ = p + 1;
+                }
+                p->next_ = nullptr;
+            }
+            
+            //从对象池里第一个位置拿一个对象给调用者
+            queItem* p = item_pool_;
+            item_pool_ = item_pool_ ->next_;
+            return p;
+            
+        }
+        void operator delete(void* ptr)
+        {
+            queItem* p = (queItem*) ptr;
+            p->next_ = item_pool_;
+            item_pool_ = p;
+        }
+        //采用对象池的形式来构造对象
+        static queItem* item_pool_;    //指向池的第一个对象
+        static const int POOLSIZE = 1000000;    //对象池的size
         T value_;
         queItem *next_;
     };
@@ -65,3 +94,6 @@ public:
         return front_ == rear_;
     }
 };
+
+template <typename T>
+typename queue<T>::queItem *queue<T>::queItem::item_pool_ = nullptr;
