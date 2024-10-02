@@ -1,30 +1,42 @@
 #include <iostream>
 #include "vector.hpp"
 
-
 int main()
 {
     vector<int> v;
-    for(int i = 0;i < 20 ;i ++)
+    for (int i = 0; i < 20; i++)
     {
-        v.push_back(random()%100);
+        v.push_back(random() % 100);
     }
+    for (auto i : v)
+    {
+        std::cout << i << " ";
+    }
+    std::cout << std::endl;
+    auto it = v.end();
+    v.pop_back();
+    std::cout << std::boolalpha << (bool)(it != v.end()) << std::endl;
 
-    int size = v.size();
-    for(int i = 0;i < size;i++)
+    auto fir = v.begin();
+    fir = v.insert(fir, 20);
+
+    for (auto i : v)
     {
-        std::cout << v[i] ;
+        std::cout << i << " ";
     }
-std::cout  << std::endl;
-    vector<int>::iterator iter = v.begin();
-    for(;iter != v.end();++iter)
+    std::cout << std::endl;
+
+    
+    for(;fir != v.end();)
     {
-        std::cout << *iter ;
+         v.erase(fir);
     }
-    std::cout  << std::endl;
-    for(auto i : v)
+    
+
+    for (auto i : v)
     {
-        std::cout << i ;
+        std::cout << i << " ";
     }
-  
+    std::cout << std::endl;
+
 }
