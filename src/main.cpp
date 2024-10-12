@@ -1,14 +1,11 @@
 #include <iostream>
-#include "queue.hpp"
+#include "string.hpp"
 int main()
 {
-    queue<int> q;
-
-    for(int i = 0;i < 100000;i++)
-    {
-        q.push(i);
-        q.pop();
-    }
+    String str1 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    String str2;
+    str2 = GetString(str1);
+    std::cout << str2.c_str() << std::endl;
 
     return 0;
 }
