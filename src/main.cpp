@@ -1,11 +1,17 @@
 #include <iostream>
-#include "string.hpp"
+#include "priorityQueue.hpp"
 int main()
 {
-    String str1 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    String str2;
-    str2 = GetString(str1);
-    std::cout << str2.c_str() << std::endl;
+   priorityQueue que(5);
+   for(int i = 0;i < 10;i++)
+   {
+        que.push(std::rand() % 100);
+   }
+
+   for(int i = 0;i < 10;i++) {
+        std::cout << que.top() << std::endl;
+        que.pop();
+   }
 
     return 0;
 }
